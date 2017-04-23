@@ -1,4 +1,4 @@
-module SubView exposing (view, Msg)
+module SubView exposing (Msg(..), view)
 
 import Html exposing (input, Html)
 import Html.Attributes exposing (type_, placeholder, value)
