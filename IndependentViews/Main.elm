@@ -24,8 +24,8 @@ update msg model =
         NoOp ->
             model ! []
 
-        SubViewMsg msg ->
-            case msg of
+        SubViewMsg svmsg ->
+            case svmsg of
                 SubView.FieldUpdated value ->
                     { model | field = value } ! []
 
