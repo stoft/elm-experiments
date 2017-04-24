@@ -1,17 +1,15 @@
 module StateTracker exposing (..)
 
-import Statey exposing (..)
-import Main exposing (Model)
+import Statey exposing (StateMachine, StateRecord, makeState, State, transition, getStates)
+import Model exposing (Model)
 
 
-type alias User =
-    StateRecord Model
-
-
+notAuthenticated : State
 notAuthenticated =
     makeState "not-authenticated"
 
 
+authenticated : State
 authenticated =
     makeState "authenticated"
 
@@ -26,5 +24,22 @@ stateMachine =
     , guards = []
     }
 
-canTransition : StateMachine -> State -> StateRecord -> Bool
-canTransition stateMachine state stateRecord =
+
+canTransition : StateMachine a -> State -> StateRecord a -> Bool
+canTransition stateMachine newState stateRecord =
+    let
+        result =
+            transition stateMachine newState stateRecord
+    in
+        case result of
+            Ok _ ->
+                True
+
+            _ ->
+                False
+
+
+getAllowedFutureStates : StateMachine a -> StateRecord a -> List State
+getAllowedFutureStates stateMachine stateRecord =
+    List.filter (\newState -> canTransition stateMachine newState stateRecord)
+        (getStates stateMachine)

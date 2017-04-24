@@ -2,7 +2,7 @@ module Statey
     exposing
         ( StateyError(TransitionNotDefined, GuardPreventedTansition)
         , StateMachine
-        , State
+        , State(..)
         , StateRecord
         , makeState
         , getState

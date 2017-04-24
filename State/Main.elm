@@ -1,19 +1,17 @@
 module Main exposing (main)
 
 import Html exposing (Html, text)
-import Statey
+import Model exposing (Model)
+import StateTracker exposing (notAuthenticated, authenticated)
+import Statey exposing (StateRecord, getState)
 
 
 --MODEL
 
 
-type alias Model =
-    { user : String, password : String }
-
-
 init : ( Model, Cmd Msg )
 init =
-    { user = "", password = "" } ! []
+    { user = "user", password = "password", state = notAuthenticated } ! []
 
 
 type Msg
@@ -37,7 +35,12 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    text model.user
+    if getState model == notAuthenticated then
+        text model.user
+    else if getState model == authenticated then
+        text model.password
+    else
+        text "unknown state"
 
 
 
