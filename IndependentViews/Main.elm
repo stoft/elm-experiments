@@ -1,7 +1,7 @@
 module Main exposing (main)
 
 import Html exposing (Html, text)
-import SubView
+import SubView exposing (view, Msg)
 
 
 type alias Model =
@@ -34,10 +34,6 @@ view : Model -> Html Msg
 view model =
     Html.map SubViewMsg
         (SubView.view model.field)
-
-
-
--- Html.text model.field
 
 
 main : Program Never Model Msg
